@@ -37,7 +37,7 @@ aws s3 ls s3://sama-client-assets/<client_id>/
 
 ## Configure Cyberduck
 
-[Cyberduck](https://cyberduck.io/)
+Install [Cyberduck](https://cyberduck.io/)
 
 Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 
