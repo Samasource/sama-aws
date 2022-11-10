@@ -14,7 +14,7 @@ Print temporary credentials
 ./sama-aws.py print --project-id 9888
 ```
 
-## Configure AWS CLI / boto3
+## Configure AWS CLI / boto3 for sama
 
 Add a sama profile in `~/.aws/config`
 
