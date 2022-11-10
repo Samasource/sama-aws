@@ -1,4 +1,4 @@
-# sama-setup
+# Sama AWS Setup
 
 ## Requirements
 
