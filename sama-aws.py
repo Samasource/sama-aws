@@ -64,6 +64,10 @@ if (args.action == 'configure'):
         configfile.write(json.dumps(config))
 
 if (args.action == 'print'):
+
+    if not args.project_id:
+        raise Exception("The following argument is required: -i/--project-id")
+
     temp_creds = get_temp_credentials(args.project_id)
 
     output = {
