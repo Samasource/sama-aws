@@ -3,8 +3,9 @@
 ## Requirements
 
   * Python 3
-  * Sama API key
-  * Sama Project Id
+  * [AWS CLI](https://aws.amazon.com/cli/)
+  * Your Sama API key
+  * Your Sama Project Id
 
 ## Setup
 
@@ -37,7 +38,9 @@ aws sts get-caller-identity --profile sama
 aws s3 ls s3://sama-client-assets/<client_id>/
 ```
 
-## Configure for cyberduck
+## Configure Cyberduck
+
+[Cyberduck](https://cyberduck.io/)
 
 Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 
