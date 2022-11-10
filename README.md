@@ -9,14 +9,11 @@
 
 ## Setup
 
-
-You will need your Sama API key and project id.
-
 ```bash
 ./sama-aws.py configure
 ```
 
-Print temporary credentials
+Test it
 
 ```bash
 ./sama-aws.py print --project-id 9888
