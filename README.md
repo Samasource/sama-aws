@@ -1,6 +1,13 @@
 # sama-setup
 
+## Requirements
+
+  * Python 3
+  * Sama API key
+  * Sama Project Id
+
 ## Setup
+
 
 You will need your Sama API key and project id.
 
