@@ -7,14 +7,17 @@ import os
 import time
 import urllib.request
 
+
 def get_temp_credentials(project_id):
 
     f = open(os.path.join(Path.home(), '.sama.json'), "r")
     sama_config = json.load(f)
 
     # open a connection to a URL using urllib
-    resp  = urllib.request.urlopen("https://api.sama.com/v2/projects/%s/credentials.json?access_key=%s" % (project_id, sama_config['apiKey']))
+    resp = urllib.request.urlopen(
+        "https://api.sama.com/v2/projects/%s/credentials.json?access_key=%s" % (project_id, sama_config['apiKey']))
     return json.load(resp)
+
 
 def refresh_credentials(profile, project_id):
     print('refreshing %s credentials' % (profile))
@@ -34,18 +37,22 @@ def refresh_credentials(profile, project_id):
 
 
 parser = argparse.ArgumentParser(
-                    prog = 'sama-aws',
-                    description = 'Get Sama temporary credentials')
+    prog='sama-aws',
+    description='Get Sama temporary credentials')
 
-parser.add_argument('-c', '--credential-process',
-                    action='store_true')
+parser.add_argument('action', choices=[
+                    'configure', 'print', 'update-credentials-file'])
 
-parser.add_argument('-i', '--project-id', type=int, required=True, help="The Sama project id")
-parser.add_argument('-p', '--profile', help="The AWS CLI profile to refresh in ~/.aws/credentials")
+parser.add_argument('-i', '--project-id', type=int,
+                    required=True, help="The Sama project id")
+parser.add_argument(
+    '-p', '--profile',
+    help="The AWS CLI profile to refresh in ~/.aws/credentials (default: %(default)s)",
+    default="sama-cyberduck")
 
 args = parser.parse_args()
 
-if(args.credential_process):
+if (args.action == 'print'):
     temp_creds = get_temp_credentials(args.project_id)
 
     output = {
@@ -56,9 +63,10 @@ if(args.credential_process):
         "Expiration": temp_creds['expiration'],
     }
     print(json.dumps(output))
-    
-if(args.profile):
-    while(True):
+
+if (args.action == 'update-credentials-file'):
+
+    while (True):
         refresh_credentials(args.profile, args.project_id)
         print('Sleeping for 45 minutes...')
         time.sleep(2700)
