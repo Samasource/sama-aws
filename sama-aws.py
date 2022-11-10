@@ -8,6 +8,18 @@ import time
 import urllib.request
 
 
+def get_project_info(project_id):
+
+    f = open(os.path.join(Path.home(), '.sama.json'), "r")
+    sama_config = json.load(f)
+
+    # open a connection to a URL using urllib
+    resp = urllib.request.urlopen(
+        "https://api.sama.com/v2/projects/%s.json?access_key=%s" % (project_id, sama_config['apiKey']))
+
+    return json.load(resp)
+
+
 def get_temp_credentials(project_id):
 
     f = open(os.path.join(Path.home(), '.sama.json'), "r")
@@ -16,6 +28,7 @@ def get_temp_credentials(project_id):
     # open a connection to a URL using urllib
     resp = urllib.request.urlopen(
         "https://api.sama.com/v2/projects/%s/credentials.json?access_key=%s" % (project_id, sama_config['apiKey']))
+
     return json.load(resp)
 
 
@@ -55,6 +68,9 @@ args = parser.parse_args()
 
 if (args.action == 'configure'):
 
+    if not args.project_id:
+        raise Exception("The following argument is required: -i/--project-id")
+
     api_key = input("Sama API Key: ")
     config = {
         "apiKey": api_key
@@ -62,6 +78,12 @@ if (args.action == 'configure'):
 
     with open(os.path.join(Path.home(), '.sama.json'), 'w') as configfile:
         configfile.write(json.dumps(config))
+
+    info = get_project_info(args.project_id)
+
+    print('')
+    print('Success!')
+    print("Assets S3 URL: %s" % (info['asset_s3_url']))
 
 if (args.action == 'print'):
 
