@@ -2,6 +2,8 @@
 
 ## Setup
 
+You will need your Sama API key and project id.
+
 ```bash
 ./sama-aws.py configure
 ```
