@@ -44,13 +44,24 @@ parser.add_argument('action', choices=[
                     'configure', 'print', 'update-credentials-file'])
 
 parser.add_argument('-i', '--project-id', type=int,
-                    required=True, help="The Sama project id")
+                    help="The Sama project id")
 parser.add_argument(
     '-p', '--profile',
     help="The AWS CLI profile to refresh in ~/.aws/credentials (default: %(default)s)",
     default="sama-cyberduck")
 
 args = parser.parse_args()
+
+
+if (args.action == 'configure'):
+
+    api_key = input("Sama API Key: ")
+    config = {
+        "apiKey": api_key
+    }
+
+    with open(os.path.join(Path.home(), '.sama.json'), 'w') as configfile:
+        configfile.write(json.dumps(config))
 
 if (args.action == 'print'):
     temp_creds = get_temp_credentials(args.project_id)

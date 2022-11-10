@@ -2,16 +2,7 @@
 
 ## Setup
 
-Create a file in `~/.sama.json
-
-```json
-{
-  "apiKey": "<Your Sama API Key>"
-}
-```
-
 ```bash
-# Not yet done
 ./sama-aws.py configure
 ```
 
