@@ -31,8 +31,8 @@ credential_process = /<absolute-path>/sama-aws.py print --project-id 9888
 Test AWS CLI sama profile
 
 ```bash
-aws sts get-caller-identity --profile sama
-aws s3 ls s3://sama-client-assets/<client_id>/
+aws --profile sama sts get-caller-identity 
+aws --profile sama s3 ls s3://sama-client-assets/<client_id>/
 ```
 
 ## Configure Cyberduck
