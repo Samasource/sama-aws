@@ -16,7 +16,7 @@
 Test it
 
 ```bash
-./sama-aws.py print --project-id 9888
+./sama-aws.py print
 ```
 
 ## Configure AWS CLI / boto3 for sama
@@ -25,7 +25,7 @@ Add a sama profile in `~/.aws/config`
 
 ```ini
 [profile sama]
-credential_process = /<absolute-path>/sama-aws.py print --project-id 9888
+credential_process = /<absolute-path>/sama-aws.py print
 ```
 
 Test AWS CLI sama profile
@@ -42,7 +42,7 @@ Install [Cyberduck](https://cyberduck.io/)
 Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 
 ```bash
-./sama-aws.py update-credentials-file --project-id 9888
+./sama-aws.py update-credentials-file
 ```
 
 - Add `S3 (Credentials from AWS Command Line Interface)` bookmark in Cyberduck
