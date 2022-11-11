@@ -48,3 +48,5 @@ Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 - Add `S3 (Credentials from AWS Command Line Interface)` bookmark in Cyberduck
 - Set profile name as `sama-cyberduck`
 - Set path to sama-client-assets/<client_id>
+
+After an hour, the temporary credentials will expire in Cyberduck and you will need to reconnect by going back to the landing page.
