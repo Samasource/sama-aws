@@ -21,6 +21,14 @@ Test it
 
 ## Configure AWS CLI / boto3 for sama
 
+Install [AWS CLI](https://aws.amazon.com/cli/)
+
+If it's the first time you use AWS CLI, run the following command with some dummy values so it create the config files.
+
+```
+aws configure
+```
+
 Add a sama profile in `~/.aws/config`
 
 ```ini
@@ -32,7 +40,7 @@ Test AWS CLI sama profile
 
 ```bash
 aws --profile sama sts get-caller-identity 
-aws --profile sama s3 ls s3://sama-client-assets/<client_id>/
+aws --profile sama s3 ls <Assets S3 URL as printed by the configure command>
 ```
 
 ## Configure Cyberduck
@@ -50,3 +58,6 @@ Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 - Set path to sama-client-assets/<client_id>
 
 After an hour, the temporary credentials will expire in Cyberduck and you will need to reconnect by going back to the landing page.
+
+
+
