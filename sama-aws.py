@@ -8,10 +8,14 @@ import time
 import urllib.request
 
 
+def get_sama_aws_config():
+    f = open(os.path.join(Path.home(), '.sama.json'), "r")
+    return json.load(f)
+
+
 def get_project_info(project_id):
 
-    f = open(os.path.join(Path.home(), '.sama.json'), "r")
-    sama_config = json.load(f)
+    sama_config = get_sama_aws_config()
 
     # open a connection to a URL using urllib
     resp = urllib.request.urlopen(
@@ -22,8 +26,7 @@ def get_project_info(project_id):
 
 def get_temp_credentials(project_id):
 
-    f = open(os.path.join(Path.home(), '.sama.json'), "r")
-    sama_config = json.load(f)
+    sama_config = get_sama_aws_config()
 
     # open a connection to a URL using urllib
     resp = urllib.request.urlopen(
@@ -68,13 +71,20 @@ args = parser.parse_args()
 
 if (args.action == 'configure'):
 
+    try:
+        config = get_sama_aws_config()
+    except:
+        config = {
+            "apiKey": ""
+        }
+
     if not args.project_id:
         raise Exception("The following argument is required: -i/--project-id")
 
-    api_key = input("Sama API Key: ")
-    config = {
-        "apiKey": api_key
-    }
+    api_key = input("Sama API Key: (%s) " % (config['apiKey']))
+
+    if (api_key != ""):
+        config['apiKey'] = api_key
 
     with open(os.path.join(Path.home(), '.sama.json'), 'w') as configfile:
         configfile.write(json.dumps(config))
