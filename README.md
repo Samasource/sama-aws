@@ -9,33 +9,21 @@
 
 ## Setup
 
+Install Python 3.
+Install [AWS CLI](https://aws.amazon.com/cli/)
+
+This will create a `sama` AWS CLI profile.
+
 ```bash
 ./sama-aws.py configure
 ```
+
+Look for `Assets S3 URL` in the command output, you will need it later.
 
 Test it
 
 ```bash
 ./sama-aws.py print
-```
-
-## Configure AWS CLI / boto3 for sama
-
-Install [AWS CLI](https://aws.amazon.com/cli/)
-
-If it's the first time you use AWS CLI, run the following command with some dummy values so it create the config files.
-
-```
-aws configure
-```
-
-Look for `Assets S3 URL` in the command output, you will need it later.
-
-Add a sama profile in `~/.aws/config`
-
-```ini
-[profile sama]
-credential_process = /<absolute-path>/sama-aws.py print
 ```
 
 Test AWS CLI sama profile
@@ -49,7 +37,7 @@ aws --profile sama s3 ls <Assets S3 URL as printed by the configure command>
 
 Install [Cyberduck](https://cyberduck.io/)
 
-Run in a shell and let it run. It will refresh the credentials every 45 minutes.
+Run the following command in a shell. It will create or update the `sama-cyberduck` AWS profile.
 
 ```bash
 ./sama-aws.py update-credentials-file
@@ -59,4 +47,4 @@ Run in a shell and let it run. It will refresh the credentials every 45 minutes.
 - Set profile name as `sama-cyberduck`
 - Set path to `Assets S3 URL` as printed by the configure command but without the `s3://` prefix.
 
-After an hour, the temporary credentials will expire in Cyberduck and you will need to reconnect by going back to the landing page.
+After an hour, the temporary credentials will expire in Cyberduck. You will need to rum the script aign and reconnect by going back to the Cyberduck landing page.

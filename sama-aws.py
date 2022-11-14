@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 import time
 import urllib.request
+import sys
 
 
 def get_sama_aws_config():
@@ -36,8 +37,8 @@ def get_temp_credentials(project_id):
     return json.load(resp)
 
 
-def refresh_credentials(profile, project_id):
-    print('refreshing %s credentials' % (profile))
+def update_aws_credentials_file(profile, project_id):
+    print("Refreshing '%s' credentials" % (profile))
 
     credentials_file = os.path.join(Path.home(), '.aws/credentials')
     config = configparser.ConfigParser()
@@ -45,7 +46,7 @@ def refresh_credentials(profile, project_id):
 
     temp_creds = get_temp_credentials(project_id)
 
-    try: 
+    try:
         config[profile]
     except:
         config[profile] = {}
@@ -58,6 +59,26 @@ def refresh_credentials(profile, project_id):
         config.write(configfile)
 
 
+def update_aws_config_file(profile):
+
+    print("Creating '%s' AWS profile" % (profile))
+    profile_key = "profile %s" % (profile)
+
+    aws_config_file = os.path.join(Path.home(), '.aws/config')
+    config = configparser.ConfigParser()
+    config.read(aws_config_file)
+
+    try:
+        config[profile_key]
+    except:
+        config[profile_key] = {}
+
+    config[profile_key]['credential_process'] = "%s %s print" % (sys.executable, Path(__file__))
+
+    with open(aws_config_file, 'w') as configfile:
+        config.write(configfile)
+
+
 parser = argparse.ArgumentParser(
     prog='sama-aws',
     description='Get Sama temporary credentials')
@@ -67,15 +88,17 @@ parser.add_argument('action', choices=[
 
 parser.add_argument('-i', '--project-id', type=int,
                     help="The Sama project id")
+
 parser.add_argument(
     '-p', '--profile',
-    help="The AWS CLI profile to refresh in ~/.aws/credentials (default: %(default)s)",
-    default="sama-cyberduck")
+    help="Override the AWS CLI profile to create")
 
 args = parser.parse_args()
 
 
 if (args.action == 'configure'):
+
+    profile = args.profile if args.profile else "sama"
 
     try:
         config = get_sama_aws_config()
@@ -102,6 +125,8 @@ if (args.action == 'configure'):
     print('Success!')
     print("Assets S3 URL: %s" % (info['asset_s3_url']))
 
+    update_aws_config_file(profile)
+
 
 if (args.action == 'print'):
 
@@ -118,7 +143,5 @@ if (args.action == 'print'):
 
 if (args.action == 'update-credentials-file'):
 
-    while (True):
-        refresh_credentials(args.profile, args.project_id)
-        print('Sleeping for 45 minutes...')
-        time.sleep(2700)
+    profile = args.profile if args.profile else "sama-cyberduck"
+    update_aws_credentials_file(profile, args.project_id)
