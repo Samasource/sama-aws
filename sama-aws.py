@@ -73,7 +73,8 @@ def update_aws_config_file(profile):
     except:
         config[profile_key] = {}
 
-    config[profile_key]['credential_process'] = "%s %s print" % (sys.executable, Path(__file__))
+    config[profile_key]['credential_process'] = "%s %s print" % (
+        sys.executable, Path(__file__))
 
     with open(aws_config_file, 'w') as configfile:
         config.write(configfile)
@@ -82,6 +83,8 @@ def update_aws_config_file(profile):
 parser = argparse.ArgumentParser(
     prog='sama-aws',
     description='Get Sama temporary credentials')
+
+parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
 
 parser.add_argument('action', choices=[
                     'configure', 'print', 'update-credentials-file'])
