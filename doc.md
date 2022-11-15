@@ -1,4 +1,4 @@
-# How to upload your assets to Sama
+# How to upload assets to Sama
 
 ## Gather your Sama info
 
