@@ -1,8 +1,8 @@
-# How to upload your assets to Sama
+# How to upload assets to Sama
 
 ## Gather your Sama info
 
-If you already have your API key and your project ID you can skip this section.
+If you already have your API key and your project ID, you can skip this section.
 
 ### API Key
 
