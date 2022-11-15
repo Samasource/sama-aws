@@ -44,7 +44,7 @@ Python3 is available on macOS via [Homebrew](https://brew.sh/):
 brew install python3
 ```
 
-On macOS, make sure to run `Install Certificates.command` after the installation.
+On macOS, make sure to run `Install Certificates.command` after the installation if you have installed python from the python site.
 
 ### Configure sama-aws tool
 
