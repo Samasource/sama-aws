@@ -7,7 +7,6 @@
   * Your Sama API key
   * Your Sama Project Id
 
-## Setup
 
 Install Python 3.
 Install [AWS CLI](https://aws.amazon.com/cli/)
@@ -15,7 +14,7 @@ Install [AWS CLI](https://aws.amazon.com/cli/)
 This will create a `sama` AWS CLI profile.
 
 ```bash
-./sama-aws.py configure
+python3 sama-aws.py configure
 ```
 
 Look for `Assets S3 URL` in the command output, you will need it later.
@@ -23,7 +22,7 @@ Look for `Assets S3 URL` in the command output, you will need it later.
 Test it
 
 ```bash
-./sama-aws.py print
+python3 sama-aws.py print
 ```
 
 Test AWS CLI sama profile
@@ -40,7 +39,7 @@ Install [Cyberduck](https://cyberduck.io/)
 Run the following command in a shell. It will create or update the `sama-cyberduck` AWS profile.
 
 ```bash
-./sama-aws.py update-credentials-file
+python3 sama-aws.py update-credentials-file
 ```
 
 - Add `S3 (Credentials from AWS Command Line Interface)` bookmark in Cyberduck
