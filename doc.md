@@ -2,7 +2,7 @@
 
 ## Gather your Sama info
 
-If you already have your API key and your project ID you can skip this section.
+If you already know your API key and your project ID, you can skip this section.
 
 ### API Key
 
