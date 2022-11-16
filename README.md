@@ -1,8 +1,8 @@
-# How to upload assets to Sama
+# How to upload your assets to Sama
 
 ## Gather your Sama info
 
-If you already have your API key and your project ID, you can skip this section.
+If you already know your Sama API key and project ID, you can skip this section.
 
 ### API Key
 
@@ -24,17 +24,18 @@ How to get your project ID?
 
 ## Sama CLI
 
+You can use the Sama CLI to upload assets and directly create tasks if it fit your needs.
 [Sama CLI documentation](https://docs.sama.com/reference/cli-overview)
 
-## sama-aws
+## AWS CLI
 
-You will need this tool to configure AWS credentials before using AWS CLI or Cyberduck.
+Using the AWS CLI will give you the best performance to upload a lot of assets.
 
 ### Install Python 3
 
 #### Windows
 
-Download it from the [Microsoft store](https://apps.microsoft.com/store/detail/python-310/9PJPW5LDXLZ5?hl=en-us&gl=us)
+Python3 is available on the [Microsoft store](https://apps.microsoft.com/store/detail/python-310/9PJPW5LDXLZ5?hl=en-us&gl=us)
 
 #### MacOs
 
@@ -44,13 +45,17 @@ Python3 is available on macOS via [Homebrew](https://brew.sh/):
 brew install python3
 ```
 
-On macOS, make sure to run `Install Certificates.command` after the installation if you have installed python from the python site.
+On macOS, make sure to run `Install Certificates.command` after the installation.
+
+### Install AWS CLI
+
+[AWS CLI](https://aws.amazon.com/cli/)
 
 ### Configure sama-aws tool
 
 Download the [sama-aws.py](https://github.com/Samasource/sama-aws/releases/latest/download/sama-aws.py)
 
-Start a terminal. This will create a `sama` AWS CLI profile.
+Start a terminal. The configure command create a `sama` AWS CLI profile and AWS CLI will fetch temporary credentials from https://app.sama.com using your API key. It will auto-renew the credentials every hour.
 
 ```bash
 python3 sama-aws.py configure
@@ -58,22 +63,16 @@ python3 sama-aws.py configure
 
 Look for `Assets S3 URL` in the command output, you will need it later.
 
-Test AWS CLI sama profile
+Test AWS CLI sama profile. 
 
 ```bash
 aws --profile sama sts get-caller-identity 
 aws --profile sama s3 ls <Assets S3 URL as printed by the configure command>
 ```
 
-## AWS CLI
-
-### Install AWS CLI
-
-  * [AWS CLI](https://aws.amazon.com/cli/)
-
 ### Uploads assets
 
-This command upload the batch-1 folder to your S3 dedicated space.
+This command upload the batch-1 folder to your S3 dedicated prefix.
 
 ```bash
 aws --profile sama s3 sync ./batch-1 <Assets S3 URL>/batch-1
