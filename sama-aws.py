@@ -4,7 +4,6 @@ import configparser
 import json
 from pathlib import Path
 import os
-import time
 import urllib.request
 import sys
 
@@ -40,7 +39,10 @@ def get_temp_credentials(project_id):
 def update_aws_credentials_file(profile, project_id):
     print("Refreshing '%s' credentials" % (profile))
 
-    credentials_file = os.path.join(Path.home(), '.aws/credentials')
+    config_dir = os.path.join(Path.home(), '.aws')
+    os.makedirs(config_dir, mode=0o755, exist_ok=True)
+
+    credentials_file = os.path.join(config_dir, 'credentials')
     config = configparser.ConfigParser()
     config.read(credentials_file)
 
@@ -64,7 +66,10 @@ def update_aws_config_file(profile):
     print("Creating '%s' AWS profile" % (profile))
     profile_key = "profile %s" % (profile)
 
-    aws_config_file = os.path.join(Path.home(), '.aws/config')
+    config_dir = os.path.join(Path.home(), '.aws')
+    os.makedirs(config_dir, mode=0o755, exist_ok=True)
+
+    aws_config_file = os.path.join(config_dir, 'config')
     config = configparser.ConfigParser()
     config.read(aws_config_file)
 
