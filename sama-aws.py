@@ -89,7 +89,7 @@ parser = argparse.ArgumentParser(
     prog='sama-aws',
     description='Get Sama temporary credentials')
 
-parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0.2')
 
 parser.add_argument('action', choices=[
                     'configure', 'print', 'update-credentials-file'])
